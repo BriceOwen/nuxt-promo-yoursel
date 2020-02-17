@@ -1,0 +1,51 @@
+{
+  "name": "nuxt-promo-yourself",
+  "version": "1.0.0",
+  "description": "Udemy Practice Project",
+  "author": "Owen Brice",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/bulma": "^1.2.1",
+    "@nuxtjs/dotenv": "^1.4.0",
+    "async": "^3.1.1",
+    "async-lock": "^1.2.2",
+    "bcrypt": "^3.0.8",
+    "body-parser": "^1.19.0",
+    "connect-mongodb-session": "^2.3.1",
+    "cross-env": "^5.2.0",
+    "express": "^4.16.4",
+    "express-session": "^1.17.0",
+    "highlight.js": "^9.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "mongoose": "^5.9.1",
+    "nuxt": "^2.0.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "portal-vue": "^2.1.7",
+    "slugify": "^1.3.6",
+    "tiptap": "^1.26.6",
+    "tiptap-extensions": "^1.28.6",
+    "vue-toasted": "^1.1.27",
+    "vuejs-paginate": "^2.1.0",
+    "vuelidate": "^0.7.5"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^2.0.0",
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.1.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "node-sass": "^4.13.1",
+    "nodemon": "^2.0.2",
+    "sass-loader": "^8.0.2"
+  }
+}
