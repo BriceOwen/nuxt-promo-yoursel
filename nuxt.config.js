@@ -51,6 +51,9 @@ module.exports = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
+  serverMiddleware: [
+    '~/server/routes/index'
+  ],
   /*
    ** Build configuration
    */
