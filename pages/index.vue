@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import CourseCard from '@/components/CourseCard'
 import BlogCard from '@/components/BlogCard'
 import Hero from '@/components/shared/Hero'
@@ -38,6 +40,14 @@ export default {
     CourseCard,
     BlogCard,
     Hero
+  },
+  async fetch ({ store }) {
+    await store.dispatch('course/fetchCourses')
+  },
+  computed: {
+    ...mapState({
+      courses: state => state.course.items
+    })
   }
 }
 </script>
