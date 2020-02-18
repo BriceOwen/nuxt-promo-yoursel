@@ -12,7 +12,7 @@
       <div class="media">
         <div class="media-content">
           <p class="title is-4">
-            {{ course.title }}
+            {{ course.title | shortenText(45) }}
           </p>
           <p class="subtitle is-6">
             <i>{{ course.author.name }}</i>
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="content">
-        {{ course.subtitle }}
+        {{ course.subtitle | shortenText(45) }}
         <br>
       </div>
       <div class="price-box">
