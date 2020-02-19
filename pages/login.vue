@@ -23,6 +23,7 @@
                     placeholder="Your Email"
                     autofocus=""
                     autocomplete="email"
+                    @blur="$v.form.email.$touch()"
                   >
                   <div v-if="$v.form.email.$error" class="form-error">
                     <span
@@ -44,6 +45,7 @@
                     type="password"
                     placeholder="Your Password"
                     autocomplete="current-password"
+                    @blur="$v.form.password.$touch()"
                   >
                   <div v-if="$v.form.password.$error" class="form-error">
                     <span
@@ -55,6 +57,7 @@
               </div>
               <!-- Login Button -->
               <button
+                :disabled="$v.form.$invalid"
                 class="button is-block is-info is-large is-fullwidth"
                 @click.prevent="login"
               >
