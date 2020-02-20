@@ -23,7 +23,10 @@
                     placeholder="Username"
                     @blur="$v.form.username.$touch"
                   >
-                  <div v-if="$v.form.username.$error" class="form-error">
+                  <div
+                    v-if="$v.form.username.$error"
+                    class="form-error"
+                  >
                     <span
                       v-if="!$v.form.username.required"
                       class="help is-danger"
@@ -44,7 +47,10 @@
                   placeholder="Name"
                   @blur="$v.form.name.$touch()"
                 >
-                <div v-if="$v.form.name.$error" class="form-error">
+                <div
+                  v-if="$v.form.name.$error"
+                  class="form-error"
+                >
                   <span
                     v-if="!$v.form.name.required"
                     class="help is-danger"
@@ -64,7 +70,10 @@
                     placeholder="Your Email"
                     @blur="$v.form.email.$touch()"
                   >
-                  <div v-if="$v.form.email.$error" class="form-error">
+                  <div
+                    v-if="$v.form.email.$error"
+                    class="form-error"
+                  >
                     <span
                       v-if="!$v.form.email.required"
                       class="help is-danger"
@@ -86,7 +95,10 @@
                     autocomplete=""
                     @blur="$v.form.avatar.$touch()"
                   >
-                  <div v-if="$v.form.avatar.$error" class="form-error">
+                  <div
+                    v-if="$v.form.avatar.$error"
+                    class="form-error"
+                  >
                     <span
                       v-if="!$v.form.avatar.url"
                       class="help is-danger"
@@ -108,7 +120,10 @@
                     autocomplete="new-password"
                     @blur="$v.form.password.$touch()"
                   >
-                  <div v-if="$v.form.password.$error" class="form-error">
+                  <div
+                    v-if="$v.form.password.$error"
+                    class="form-error"
+                  >
                     <span
                       v-if="!$v.form.password.required"
                       class="help is-danger"
@@ -220,10 +235,20 @@ export default {
       }
     }
   },
+  computed: {
+    isFormValid () {
+      return !this.$v.form.$invalid
+    }
+  },
   methods: {
     register () {
       this.$v.form.$touch()
-      console.log(this.form)
+
+      if (this.isFormValid) {
+        this.$store.dispatch('auth/register', this.form)
+          .then(_ => this.$router.push('/login'))
+          .catch(error => this.$toasted.error(error, { duration: 3000 }))
+      }
     }
   }
 }
