@@ -25,7 +25,10 @@
                     autocomplete="email"
                     @blur="$v.form.email.$touch()"
                   >
-                  <div v-if="$v.form.email.$error" class="form-error">
+                  <div
+                    v-if="$v.form.email.$error"
+                    class="form-error"
+                  >
                     <span
                       v-if="!$v.form.email.required"
                       class="help is-danger"
@@ -47,7 +50,10 @@
                     autocomplete="current-password"
                     @blur="$v.form.password.$touch()"
                   >
-                  <div v-if="$v.form.password.$error" class="form-error">
+                  <div
+                    v-if="$v.form.password.$error"
+                    class="form-error"
+                  >
                     <span
                       v-if="!$v.form.password.required"
                       class="help is-danger"
@@ -102,11 +108,20 @@ export default {
       }
     }
   },
+  computed: {
+    isFormValid () {
+      return !this.$v.$invalid
+    }
+  },
   methods: {
     login () {
       this.$v.form.$touch()
 
-      this.$store.dispatch('auth/login', this.form)
+      if (this.isFormValid) {
+        this.$store.dispatch('auth/login', this.form)
+          .then(() => this.$router.push('/'))
+          .catch(() => this.$toasted.error('Wrong email or password', { duration: 3000 }))
+      }
     }
   }
 }
