@@ -71,19 +71,19 @@
         <div class="navbar-item">
           <div class="buttons">
             <!-- If Authenticated -->
-            <template v-if="false">
+            <template v-if="isAuth">
               <figure class="image avatar is-48x48 m-r-sm">
                 <img
                   class="is-rounded"
-                  src="https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png"
+                  :src="user.avatar"
                 >
               </figure>
               <div class="m-r-sm m-b-sm">
-                Welcome User!
+                Welcome {{ user.username }}!
               </div>
               <!-- If Admin -->
               <button
-                v-if="true"
+                v-if="isAdmin"
                 class="button is-link is-outlined"
                 @click="() => {}"
               >
@@ -116,6 +116,20 @@
     </div>
   </nav>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters({
+      user: 'auth/authUser',
+      isAuth: 'auth/isAuthenticated',
+      isAdmin: 'auth/isAdmin'
+    })
+  }
+}
+</script>
 
 <style lang="scss" scoped>
   .brand-title {
