@@ -195,6 +195,7 @@ import {
 import { supportedFileType } from '@/helpers/validators'
 
 export default {
+  middleware: 'guest',
   data () {
     return {
       form: {
