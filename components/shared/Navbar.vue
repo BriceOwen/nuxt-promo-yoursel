@@ -91,7 +91,7 @@
               </button>
               <a
                 class="button is-primary"
-                @click="() => {}"
+                @click="logout"
               >
                 Logout
               </a>
@@ -127,6 +127,11 @@ export default {
       isAuth: 'auth/isAuthenticated',
       isAdmin: 'auth/isAdmin'
     })
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('auth/logout').then(() => this.$router.push('/login'))
+    }
   }
 }
 </script>
