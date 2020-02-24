@@ -73,11 +73,23 @@
   </div>
 </template>
 <script>
-import InstructorHeader from '~/components/shared/Header'
+import { mapState } from 'vuex'
+import InstructorHeader from '@/components/shared/Header'
+
 export default {
   layout: 'instructor',
   components: {
     InstructorHeader
+  },
+  fetch ({ store }) {
+    return store.dispatch('instructor/course/fetchInstructorCourses')
+  },
+  computed: {
+    ...mapState({
+      courses (state) {
+        return state.instructor.course.item
+      }
+    })
   }
 }
 </script>
