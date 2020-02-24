@@ -7,7 +7,7 @@
       />
       <div class="full-page-takeover-header-bottom-progress">
         <div
-          :style="{width: '50%'}"
+          :style="{width: progress}"
           class="full-page-takeover-header-bottom-progress-highlight"
         />
       </div>
@@ -19,28 +19,33 @@
         <div class="full-page-footer-row">
           <div class="container">
             <div class="full-page-footer-col">
-              <div>
+              <div v-if="!isFirstStep">
                 <a
                   class="button is-large"
                   @click.prevent="previousStep"
                 >Previous</a>
               </div>
-              <!-- <div v-else class="empty-container">
-              </div> -->
+              <div
+                v-else
+                class="empty-container"
+              />
             </div>
             <div class="full-page-footer-col">
               <div>
                 <button
+                  v-if="!isLastStep"
                   class="button is-large float-right"
                   @click.prevent="nextStep"
                 >
                   Continue
                 </button>
-                <!-- <button
+                <button
+                  v-else
+                  class="button is-success is-large float-right"
                   @click="() => {}"
-                  class="button is-success is-large float-right">
+                >
                   Confirm
-                </button> -->
+                </button>
               </div>
             </div>
           </div>
@@ -64,15 +69,30 @@ export default {
   },
   data () {
     return {
-      activeStep: 1
+      activeStep: 1,
+      steps: ['CourseCreateStep1', 'CourseCreateStep2']
+    }
+  },
+  computed: {
+    stepsLength () {
+      return this.steps.length
+    },
+    isFirstStep () {
+      return this.activeStep === 1
+    },
+    isLastStep () {
+      return this.activeStep === this.stepsLength
+    },
+    progress () {
+      return `${100 / this.stepsLength * this.activeStep}%`
     }
   },
   methods: {
     nextStep () {
-      if (this.activeStep < 2) { this.activeStep++ }
+      this.activeStep++
     },
     previousStep () {
-      if (this.activeStep > 1) { this.activeStep-- }
+      this.activeStep--
     }
   }
 }
