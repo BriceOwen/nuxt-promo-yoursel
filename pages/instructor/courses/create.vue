@@ -14,7 +14,10 @@
       <div class="course-create full-page-takeover-container">
         <div class="container">
           <keep-alive>
-            <component :is="activeComponent" />
+            <component
+              :is="activeComponent"
+              @stepUpdated="mergeFormData"
+            />
           </keep-alive>
         </div>
         <div class="full-page-footer-row">
@@ -73,7 +76,11 @@ export default {
     return {
       activeStep: 1,
       steps: ['CourseCreateStep1', 'CourseCreateStep2'],
-      canProceed: false
+      canProceed: false,
+      form: {
+        title: '',
+        category: ''
+      }
     }
   },
   computed: {
@@ -99,6 +106,10 @@ export default {
     },
     previousStep () {
       this.activeStep--
+    },
+    mergeFormData ({ data, isValid }) {
+      this.form = { ...this.form, ...data }
+      this.canProceed = isValid
     }
   }
 }
