@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Header from '~/components/shared/Header'
 import CourseCreateStep1 from '~/components/instructor/CourseCreateStep1'
 import CourseCreateStep2 from '~/components/instructor/CourseCreateStep2'
@@ -71,6 +72,9 @@ export default {
     Header,
     CourseCreateStep1,
     CourseCreateStep2
+  },
+  fetch ({ store }) {
+    return store.dispatch('category/fetchCategories')
   },
   data () {
     return {
@@ -84,6 +88,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      categories: state => state.category.items
+    }),
     stepsLength () {
       return this.steps.length
     },
