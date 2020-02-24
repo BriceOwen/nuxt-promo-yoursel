@@ -13,8 +13,9 @@
       </div>
       <div class="course-create full-page-takeover-container">
         <div class="container">
-          <CourseCreateStep1 v-if="activeStep === 1" />
-          <CourseCreateStep2 v-if="activeStep === 2" />
+          <keep-alive>
+            <component :is="activeComponent" />
+          </keep-alive>
         </div>
         <div class="full-page-footer-row">
           <div class="container">
@@ -34,6 +35,7 @@
               <div>
                 <button
                   v-if="!isLastStep"
+                  :disabled="!canProceed"
                   class="button is-large float-right"
                   @click.prevent="nextStep"
                 >
@@ -70,7 +72,8 @@ export default {
   data () {
     return {
       activeStep: 1,
-      steps: ['CourseCreateStep1', 'CourseCreateStep2']
+      steps: ['CourseCreateStep1', 'CourseCreateStep2'],
+      canProceed: false
     }
   },
   computed: {
@@ -85,6 +88,9 @@ export default {
     },
     progress () {
       return `${100 / this.stepsLength * this.activeStep}%`
+    },
+    activeComponent () {
+      return this.steps[this.activeStep - 1]
     }
   },
   methods: {

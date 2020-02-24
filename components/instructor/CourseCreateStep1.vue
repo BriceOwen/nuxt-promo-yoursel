@@ -6,10 +6,7 @@
     <h2 class="course-create-subtitle">
       No worries, you can change title later.
     </h2>
-    <form
-      class="course-create-form"
-      @input="emitFormData"
-    >
+    <form class="course-create-form">
       <div class="course-create-form-group">
         <div class="field course-create-form-field control has-icons-right">
           <input
