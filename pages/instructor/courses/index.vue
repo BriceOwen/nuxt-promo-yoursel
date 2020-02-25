@@ -4,7 +4,7 @@
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
           <nuxt-link
-            to="#"
+            to="/instructor/courses/create"
             class="button is-medium is-light"
           >
             New Course
@@ -61,7 +61,7 @@
                       </p>
                       <span
                         class="tag"
-                        :class="'is-success'"
+                        :class="createStatusClass(course.status)"
                       >{{ course.status }}</span>
                     </div>
                     <div class="column is-narrow flex-centered">
@@ -95,6 +95,15 @@ export default {
     ...mapState({
       courses: state => state.instructor.course.items
     })
+  },
+  methods: {
+    createStatusClass (status) {
+      if (!status) { return '' }
+      if (status === 'published') { return 'is-success' }
+      if (status === 'active') { return 'is-primary' }
+      if (status === 'inactive') { return 'is-warning' }
+      if (status === 'deleted') { return 'is-danger' }
+    }
   }
 }
 </script>
