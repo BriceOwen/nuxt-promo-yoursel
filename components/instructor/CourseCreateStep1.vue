@@ -9,15 +9,7 @@
     <form class="course-create-form">
       <div class="course-create-form-group">
         <div class="field course-create-form-field control has-icons-right">
-          <input
-            v-model="form.title"
-            :maxLength="50"
-            type="text"
-            placeholder="e.g. Amazing Course in Flutter!"
-            class="input is-large"
-            @input="emitFormData"
-            @blur="$v.form.title.$touch()"
-          >
+          <TextInputWithCount :max-length="50" />
           <div
             v-if="$v.form.title.$error"
             class="form-error"
@@ -35,8 +27,12 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
+import TextInputWithCount from '@/components/form/TextInputWithCount'
 
 export default {
+  components: {
+    TextInputWithCount
+  },
   data () {
     return {
       form: {
