@@ -6,10 +6,17 @@
     <h2 class="course-create-subtitle">
       No worries, you can change title later.
     </h2>
-    <form class="course-create-form">
+    <form
+      class="course-create-form"
+      @input="emitFormData"
+    >
       <div class="course-create-form-group">
         <div class="field course-create-form-field control has-icons-right">
-          <TextInputWithCount :max-length="50" />
+          <TextInputWithCount
+            v-model="form.title"
+            :v="$v.form.title"
+            :max-length="50"
+          />
           <div
             v-if="$v.form.title.$error"
             class="form-error"
