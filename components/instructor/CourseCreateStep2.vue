@@ -13,6 +13,7 @@
             <select
               v-model="form.category"
               @change="emitFormData"
+              @blur="$v.form.category.$touch()"
             >
               <option value="default">
                 Select Category
@@ -25,6 +26,14 @@
                 {{ category.name }}
               </option>
             </select>
+          </div>
+          <!-- TODO: -->
+          <!-- Consider to create custom validator to check if category is provided and has value of "default" -->
+          <div
+            v-if="$v.form.category.$dirty && !isValid"
+            class="form-error"
+          >
+            <span class="help is-danger">Category is required!</span>
           </div>
         </div>
       </div>
@@ -61,8 +70,15 @@ export default {
   },
   methods: {
     emitFormData () {
+      this.$v.form.$touch()
       this.$emit('stepUpdated', { data: this.form, isValid: this.isValid })
     }
   }
 }
 </script>
+
+<style scoped>
+  .help.is-danger {
+    text-align: left;
+  }
+</style>
