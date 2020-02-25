@@ -10,6 +10,9 @@ export const actions = {
         return state.items
       })
       .catch(error => Promise.reject(error))
+  },
+  createCourse (_, courseData) {
+    return this.$axios.$post('/api/v1/products', courseData)
   }
 }
 
