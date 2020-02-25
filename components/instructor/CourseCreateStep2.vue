@@ -10,15 +10,15 @@
       <div class="course-create-form-group">
         <div class="course-create-form-field">
           <div class="select is-large">
-            <select>
+            <select @onChange="emitFormData">
               <option value="default">
                 Select Category
               </option>
-              <option>
-                Mobile Development
-              </option>
-              <option>
-                Web Development
+              <option
+                v-for="category in categories"
+                :key="category._id"
+              >
+                {{ category.name }}
               </option>
             </select>
           </div>
@@ -27,3 +27,38 @@
     </form>
   </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+import { required } from 'vuelidate/lib/validators'
+
+export default {
+  data () {
+    return {
+      form: {
+        category: ''
+      }
+    }
+  },
+  validations: {
+    form: {
+      category: {
+        required
+      }
+    }
+  },
+  computed: {
+    ...mapState({
+      categories: state => state.category.items
+    }),
+    isValid () {
+      return !this.$v.$invalid
+    }
+  },
+  methods: {
+    emitFormData () {
+      this.$emit('stepUpdated', { data: this.form, isValid: this.isValid })
+    }
+  }
+}
+</script>
