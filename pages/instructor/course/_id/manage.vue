@@ -29,13 +29,13 @@
                   <!-- display TargetStudents -->
                   <a
                     :class="'active'"
-                    @click.prevent="() => {}"
+                    @click.prevent="navigateTo(1)"
                   >Target Your Students
                   </a>
                 </li>
                 <li>
                   <!-- display LandingPage -->
-                  <a @click.prevent="() => {}">
+                  <a @click.prevent="navigateTo(2)">
                     Course Landing Page
                   </a>
                 </li>
@@ -46,13 +46,13 @@
               <ul class="menu-list">
                 <li>
                   <!-- display Price -->
-                  <a @click.prevent="() => {}">
+                  <a @click.prevent="navigateTo(3)">
                     Price
                   </a>
                 </li>
                 <li>
                   <!-- display Status -->
-                  <a @click.prevent="() => {}">
+                  <a @click.prevent="navigateTo(4)">
                     Status
                   </a>
                 </li>
@@ -60,10 +60,9 @@
             </aside>
           </div>
           <div class="column">
-            <target-students />
-            <landing-page />
-            <price />
-            <status />
+            <keep-alive>
+              <component :is="activeComponent" />
+            </keep-alive>
           </div>
         </div>
       </div>
@@ -86,6 +85,22 @@ export default {
     TargetStudents,
     Price,
     Status
+  },
+  data () {
+    return {
+      steps: ['TargetStudents', 'LandingPage', 'Price', 'Status'],
+      activeStep: 1
+    }
+  },
+  computed: {
+    activeComponent () {
+      return this.steps[this.activeStep - 1]
+    }
+  },
+  methods: {
+    navigateTo (step) {
+      this.activeStep = step
+    }
   }
 }
 </script>
