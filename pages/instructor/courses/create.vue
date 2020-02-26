@@ -27,7 +27,7 @@
               <div v-if="!isFirstStep">
                 <a
                   class="button is-large"
-                  @click.prevent="previousStep"
+                  @click.prevent="_previousStep"
                 >Previous</a>
               </div>
               <div
@@ -41,7 +41,7 @@
                   v-if="!isLastStep"
                   :disabled="!canProceed"
                   class="button is-large float-right"
-                  @click.prevent="nextStep"
+                  @click.prevent="_nextStep"
                 >
                   Continue
                 </button>
@@ -64,6 +64,9 @@
 
 <script>
 import { mapState } from 'vuex'
+
+import MultiComponentMixin from '@/mixins/MultiComponentMixin'
+
 import Header from '~/components/shared/Header'
 import CourseCreateStep1 from '~/components/instructor/CourseCreateStep1'
 import CourseCreateStep2 from '~/components/instructor/CourseCreateStep2'
@@ -75,12 +78,12 @@ export default {
     CourseCreateStep1,
     CourseCreateStep2
   },
+  mixins: [MultiComponentMixin],
   fetch ({ store }) {
     return store.dispatch('category/fetchCategories')
   },
   data () {
     return {
-      activeStep: 1,
       steps: ['CourseCreateStep1', 'CourseCreateStep2'],
       canProceed: false,
       form: {
@@ -92,30 +95,15 @@ export default {
   computed: {
     ...mapState({
       categories: state => state.category.items
-    }),
-    stepsLength () {
-      return this.steps.length
-    },
-    isFirstStep () {
-      return this.activeStep === 1
-    },
-    isLastStep () {
-      return this.activeStep === this.stepsLength
-    },
-    progress () {
-      return `${100 / this.stepsLength * this.activeStep}%`
-    },
-    activeComponent () {
-      return this.steps[this.activeStep - 1]
-    }
+    })
   },
   methods: {
-    nextStep () {
-      this.activeStep++
+    _nextStep () {
+      this.nextStep()
       this.$nextTick(() => (this.canProceed = this.$refs.activeComponent.isValid))
     },
-    previousStep () {
-      this.activeStep--
+    _previousStep () {
+      this.previous()
       this.canProceed = true
     },
     mergeFormData ({ data, isValid }) {

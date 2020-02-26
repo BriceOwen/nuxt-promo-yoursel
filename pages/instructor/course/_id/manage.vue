@@ -80,6 +80,8 @@
 </template>
 
 <script>
+import MultiComponentMixin from '@/mixins/MultiComponentMixin'
+
 import Header from '@/components/shared/Header'
 import LandingPage from '@/components/instructor/LandingPage'
 import TargetStudents from '@/components/instructor/TargetStudents'
@@ -95,23 +97,10 @@ export default {
     Price,
     Status
   },
+  mixins: [MultiComponentMixin],
   data () {
     return {
-      steps: ['TargetStudents', 'LandingPage', 'Price', 'Status'],
-      activeStep: 1
-    }
-  },
-  computed: {
-    activeComponent () {
-      return this.steps[this.activeStep - 1]
-    }
-  },
-  methods: {
-    navigateTo (step) {
-      this.activeStep = step
-    },
-    activeComponentClass (step) {
-      return this.activeStep === step ? 'is-active' : ''
+      steps: ['TargetStudents', 'LandingPage', 'Price', 'Status']
     }
   }
 }
