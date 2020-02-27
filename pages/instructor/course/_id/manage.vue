@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import MultiComponentMixin from '@/mixins/MultiComponentMixin'
 
 import Header from '@/components/shared/Header'
@@ -98,10 +99,18 @@ export default {
     Status
   },
   mixins: [MultiComponentMixin],
+  fetch ({ store, params }) {
+    return store.dispatch('instructor/course/fetchCourseById', params.id)
+  },
   data () {
     return {
       steps: ['TargetStudents', 'LandingPage', 'Price', 'Status']
     }
+  },
+  computed: {
+    ...mapState({
+      course: ({ instructor }) => instructor.course.item
+    })
   }
 }
 </script>
